@@ -1,7 +1,13 @@
 import pygame
 import sys
+
+from pygame import Vector2
+
+from Slider import Slider
 from game import car_racing
 from multiplayer import multi_player
+from soundManager import soundManager
+from utils import utils
 
 # initiating pygames
 pygame.init()
@@ -13,6 +19,7 @@ screen = pygame.display.set_mode(res)
 # Creating a function that creates the GUI
 
 def interface():
+    soundManager.playMusic()
     interface_image = pygame.image.load("Images/M_menu.png")
     interface_image = pygame.transform.scale(interface_image, (1000, 720))
 
@@ -35,16 +42,20 @@ def interface():
                 mx, my = pygame.mouse.get_pos()
 
                 if button_Q.collidepoint((mx, my)):
+                    soundManager.play("click")
                     pygame.quit()
                     sys.exit()
 
                 if button_G.collidepoint((mx, my)):
+                    soundManager.play("click")
                     game()
 
                 if button_S.collidepoint((mx, my)):
+                    soundManager.play("click")
                     settings()
 
                 if button_C.collidepoint((mx, my)):
+                    soundManager.play("click")
                     credits_()
 
         screen.blit(interface_image, (0, 0))
@@ -57,6 +68,9 @@ def settings():
 
     close_btn = pygame.Rect(460, 550, 120, 60)
 
+    musicSlider = Slider(Vector2(1000/2 - 350/2,200),soundManager.getMusicVolume())
+    effectSlider = Slider(Vector2(1000 / 2 - 350 / 2, 250), soundManager.getEffectVolume())
+
     # interface loop
     while True:
         # getting the input of the user
@@ -68,11 +82,28 @@ def settings():
                 # press on quit button
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
-
+                musicSlider.onMouseDown()
+                effectSlider.onMouseDown()
                 if close_btn.collidepoint((mx, my)):
+                    soundManager.play("click")
                     interface()
+            if ev.type == pygame.MOUSEBUTTONUP:
+                musicSlider.onMouseUp()
+                soundManager.setMusicVolume(musicSlider.getValue())
+                effectSlider.onMouseUp()
+                soundManager.setEffectVolume(effectSlider.getValue())
 
         screen.blit(interface_image, (0, 0))
+
+        musicSlider.update()
+        musicSlider.draw(screen)
+
+        effectSlider.update()
+        effectSlider.draw(screen)
+
+        utils.drawText(Vector2(250,200),"Music",(233,233,12),utils.font24,screen)
+        utils.drawText(Vector2(250, 200 + 50), "Effect", (233, 233, 12), utils.font24, screen)
+
         pygame.display.update()
 
 
