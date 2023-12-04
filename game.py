@@ -3,6 +3,8 @@ from car import Car
 from powerups import *
 import sys
 
+from utils import utils
+
 street_position = 0
 
 
@@ -33,7 +35,7 @@ def car_racing():
         car.rect.y = y
         return car
 
-    playerCar = initialize_car(RED, 69, 150, 0, 200, 300, 'Images/faiscamcqueen.png')
+    playerCar = initialize_car(RED, 69, 150, 0, 200, utils.height - 190, utils.playerImg)
     car1 = initialize_car(PURPLE, 80, 130, 1, 100, -100, "Images/faisca.png")
     car2 = initialize_car(YELLOW, 80, 130, 2, 250, -600, "Images/faisca2.png")
     car3 = initialize_car(CYAN, 80, 130, 4, 400, -300, "Images/faisca3.png")

@@ -15,16 +15,14 @@ class Utils:
         self.dt = 0
         self.clock = pygame.time.Clock()
 
-
         self.font8 = pygame.font.Font('fonts/mpixel.ttf', 8)
         self.font12 = pygame.font.Font('fonts/mpixel.ttf', 12)
         self.font16 = pygame.font.Font('fonts/mpixel.ttf', 16)
         self.font24 = pygame.font.Font('fonts/mpixel.ttf', 24)
         self.font32 = pygame.font.Font('fonts/mpixel.ttf', 32)
         self.font48 = pygame.font.Font('fonts/mpixel.ttf', 48)
-        self.difficult = "easy"
 
-        self.mousePos = Vector2(0,0)
+        self.playerImg = ""
 
         # difficult
     def initDeltaTime(self):  # calculate deltaTime

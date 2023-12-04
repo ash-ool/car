@@ -3,6 +3,7 @@ import sys
 
 from pygame import Vector2
 
+from ImgBtn import ImgBtn
 from Slider import Slider
 from game import car_racing
 from multiplayer import multi_player
@@ -71,6 +72,23 @@ def settings():
     musicSlider = Slider(Vector2(1000/2 - 350/2,200),soundManager.getMusicVolume())
     effectSlider = Slider(Vector2(1000 / 2 - 350 / 2, 250), soundManager.getEffectVolume())
 
+    player1Images = [
+        "images/faiscamcqueen.png",
+        "images/faiscamcqueen2.png",
+        "images/car3.png",
+        "images/car4.png",
+    ]
+    currentPlayerImageI = 0
+    i = 0
+    for img in player1Images:
+        if img == utils.playerImg:
+            currentPlayerImageI = i
+        i += 1
+
+    leftBtn = ImgBtn(Vector2(350,400),pygame.image.load("images/leftBtn.png"))
+    rightBtn = ImgBtn(Vector2(620, 400), pygame.image.load("images/rightBtn.png"))
+
+
     # interface loop
     while True:
         # getting the input of the user
@@ -84,6 +102,19 @@ def settings():
                 mx, my = pygame.mouse.get_pos()
                 musicSlider.onMouseDown()
                 effectSlider.onMouseDown()
+
+                leftBtn.onMouseDown()
+                rightBtn.onMouseDown()
+                if leftBtn.clicked:
+                    currentPlayerImageI -= 1
+                elif rightBtn.clicked:
+                    currentPlayerImageI += 1
+                if currentPlayerImageI < 0:
+                    currentPlayerImageI = len(player1Images) - 1
+                elif currentPlayerImageI > len(player1Images)-1:
+                    currentPlayerImageI = 0
+                utils.playerImg = player1Images[currentPlayerImageI]
+
                 if close_btn.collidepoint((mx, my)):
                     soundManager.play("click")
                     interface()
@@ -92,6 +123,9 @@ def settings():
                 soundManager.setMusicVolume(musicSlider.getValue())
                 effectSlider.onMouseUp()
                 soundManager.setEffectVolume(effectSlider.getValue())
+
+                leftBtn.onMouseUp()
+                rightBtn.onMouseUp()
 
         screen.blit(interface_image, (0, 0))
 
@@ -103,6 +137,11 @@ def settings():
 
         utils.drawText(Vector2(250,200),"Music",(233,233,12),utils.font24,screen)
         utils.drawText(Vector2(250, 200 + 50), "Effect", (233, 233, 12), utils.font24, screen)
+
+        player = pygame.transform.scale(pygame.image.load(player1Images[currentPlayerImageI]),(100,170))
+        screen.blit(player,(utils.width/2 - player.get_rect().width/2,320))
+        leftBtn.draw(screen)
+        rightBtn.draw(screen)
 
         pygame.display.update()
 
