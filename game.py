@@ -1,4 +1,7 @@
 import random
+
+from pygame import Vector2
+
 from car import Car
 from powerups import *
 import sys
@@ -35,7 +38,7 @@ def car_racing():
         car.rect.y = y
         return car
 
-    playerCar = initialize_car(RED, 69, 150, 0, 200, utils.height - 190, utils.playerImg)
+    playerCar = initialize_car(RED, 69, 80, 0, 200, utils.height - 190, utils.player1Img)
     car1 = initialize_car(PURPLE, 80, 130, 1, 100, -100, "Images/faisca.png")
     car2 = initialize_car(YELLOW, 80, 130, 2, 250, -600, "Images/faisca2.png")
     car3 = initialize_car(CYAN, 80, 130, 4, 400, -300, "Images/faisca3.png")
@@ -257,11 +260,36 @@ def car_racing():
     gameover_rect = gameover_image.get_rect(center=(SCREENWIDTH // 2, SCREENHEIGHT // 2))
     screen.blit(gameover_image, gameover_rect)
 
-    screen.blit(game_over_text, game_over_rect)
-    screen.blit(play_again_text, play_again_rect)
-    screen.blit(go_to_interface_text, go_to_interface_rect)
-    screen.blit(time_elapsed_text, time_elapsed_rect)
-    screen.blit(score_text_gameover, score_rect_gameover)
+    # screen.blit(game_over_text, game_over_rect)
+    gameOverT = utils.font80.render("SETTING", True, (233, 23, 12))
+    utils.drawText(Vector2(utils.width / 2 - gameOverT.get_width() / 2, 60), "Game Over!", (233, 23, 12), utils.font80,
+                   screen)
+
+    playAgainT = utils.font48.render("Play Again(Y)", True, (233, 233, 12))
+    utils.drawText(Vector2(utils.width / 2 - playAgainT.get_width() / 2, utils.height-200), "Play Again(Y)", (233, 233, 12), utils.font48,
+                   screen)
+
+    toInterfT = utils.font48.render("Go to Interface (N)", True, (233, 233, 12))
+    utils.drawText(Vector2(utils.width / 2 - toInterfT.get_width() / 2, utils.height - 150), "Go to Interface (N)",
+                   (13, 56, 212), utils.font48,
+                   screen)
+
+    scoreT = utils.font32.render(f"Score: {score}", True, (233, 233, 233))
+    utils.drawText(Vector2(utils.width / 2 - scoreT.get_width() / 2, 300), f"Score: {score}",
+                   (233, 233, 233), utils.font32,
+                   screen)
+
+    timeT = utils.font32.render(f"Time Lived: {time_second} seconds", True, (233, 233, 233))
+    utils.drawText(Vector2(utils.width / 2 - timeT.get_width() / 2, 350), f"Time Lived___: {time_second} seconds",
+                   (233, 233, 233), utils.font32,
+                   screen)
+
+
+
+    # screen.blit(play_again_text, play_again_rect)
+    # screen.blit(go_to_interface_text, go_to_interface_rect)
+    # screen.blit(time_elapsed_text, time_elapsed_rect)
+    # screen.blit(score_text_gameover, score_rect_gameover)
     pygame.display.flip()
 
     inGameOverScreen = True

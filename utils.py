@@ -15,14 +15,17 @@ class Utils:
         self.dt = 0
         self.clock = pygame.time.Clock()
 
-        self.font8 = pygame.font.Font('fonts/mpixel.ttf', 8)
-        self.font12 = pygame.font.Font('fonts/mpixel.ttf', 12)
-        self.font16 = pygame.font.Font('fonts/mpixel.ttf', 16)
-        self.font24 = pygame.font.Font('fonts/mpixel.ttf', 24)
-        self.font32 = pygame.font.Font('fonts/mpixel.ttf', 32)
-        self.font48 = pygame.font.Font('fonts/mpixel.ttf', 48)
+        self.font8 = pygame.font.Font('fonts/dash.otf', 8)
+        self.font12 = pygame.font.Font('fonts/dash.otf', 12)
+        self.font16 = pygame.font.Font('fonts/dash.otf', 16)
+        self.font24 = pygame.font.Font('fonts/dash.otf', 24)
+        self.font32 = pygame.font.Font('fonts/dash.otf', 32)
+        self.font48 = pygame.font.Font('fonts/dash.otf', 48)
+        self.font62 = pygame.font.Font('fonts/dash.otf', 62)
+        self.font80 = pygame.font.Font('fonts/dash.otf', 80)
 
-        self.playerImg = ""
+        self.player1Img = "images/faiscamcqueen.png"
+        self.player2Img = "images/faiscamcqueen2.png"
 
         # difficult
     def initDeltaTime(self):  # calculate deltaTime
