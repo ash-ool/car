@@ -38,7 +38,9 @@ def car_racing():
         car.rect.y = y
         return car
 
-    playerCar = initialize_car(RED, 69, 80, 0, 200, utils.height - 190, utils.player1Img)
+    playerCarSize = Vector2(69,100)
+
+    playerCar = initialize_car(RED, playerCarSize.x, playerCarSize.y, 0, 200, utils.height - 190, utils.player1Img)
     car1 = initialize_car(PURPLE, 80, 130, 1, 100, -100, "Images/faisca.png")
     car2 = initialize_car(YELLOW, 80, 130, 2, 250, -600, "Images/faisca2.png")
     car3 = initialize_car(CYAN, 80, 130, 4, 400, -300, "Images/faisca3.png")
@@ -92,19 +94,19 @@ def car_racing():
             playerCar.moveRight(5)
         if keys[pygame.K_UP] and playerCar.rect.y > 0 and playerCar_speed < 10:
             playerCar_speed += 0.1
-            playerCar.moveForward(playerCar_speed)
+            playerCar.moveForward(5)
         if keys[pygame.K_DOWN] and playerCar.rect.y < SCREENHEIGHT - playerCar.rect.height and playerCar_speed > 0:
             playerCar_speed -= 0.1
-            playerCar.moveBackward(playerCar_speed)
+            playerCar.moveBackward(5)
         if playerCar.slowdown:
             playerCar_speed = 1
         else:
             playerCar_speed = 5
 
         if playerCar.small:
-            playerCar.resize(69 / 2, 150 / 2)
+            playerCar.resize(playerCarSize.x / 2, playerCarSize.y / 2)
         else:
-            playerCar.resize(69, 150)
+            playerCar.resize(playerCarSize.x, playerCarSize.y)
 
         pygame.draw.rect(screen, BLACK, [0, 0, SCREENWIDTH, 5])  # Top barrier
         pygame.draw.rect(screen, BLACK, [0, SCREENHEIGHT - 5, SCREENWIDTH, 5])  # Bottom barrier
@@ -213,8 +215,8 @@ def car_racing():
             color = PURPLE
             T.append(time_second)
 
-            playerCar.rect.width = 69 // 2
-            playerCar.rect.height = 150 // 2
+            playerCar.rect.width = playerCarSize.x // 2
+            playerCar.rect.height = playerCarSize.y // 2
         elif playerCar.double:
             screen.blit(pygame.transform.scale(interface_image_3, (100, 100)), (800, 300))
             color = YELLOW
@@ -225,8 +227,8 @@ def car_racing():
             T.append(time_second)
         else:
             color = RED
-            playerCar.rect.width = 69
-            playerCar.rect.height = 150
+            playerCar.rect.width = playerCarSize.x
+            playerCar.rect.height = playerCarSize.y
 
         screen.blit(text, pos_text)
 

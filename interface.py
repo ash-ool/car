@@ -249,6 +249,12 @@ def credits_():
                        utils.font32,
                        screen)
 
+        # gitT = utils.font16.render("https://github.com/ash-ool/car", True, (233, 233, 12))
+        # utils.drawText(Vector2(utils.width / 2 - gitT.get_width() / 2, 400), "https://github.com/ash-ool/car", (233, 233, 233),
+        #                utils.font16,
+        #                screen)
+
+
         pygame.display.update()
 
 
