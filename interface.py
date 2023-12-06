@@ -203,11 +203,11 @@ def settings():
 
 
 def credits_():
-    interface_image = pygame.image.load("Images/C_menu.png")
+    interface_image = pygame.image.load("Images/settings.png")
     interface_image = pygame.transform.scale(interface_image, (1000, 720))
-
-    button_B = pygame.Rect(15, 15, 50, 50)
-    button_I = pygame.Rect(936, 15, 50, 50)
+    closeBtn = ImgBtn(Vector2(utils.width - 150, utils.height - 50), pygame.image.load("images/button2.png"), "CLOSE",
+                      utils.font32,
+                      (255, 255, 255))
 
     # interface loop
     while True:
@@ -221,10 +221,33 @@ def credits_():
             if ev.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
 
-                if button_B.collidepoint((mx, my)):
+                closeBtn.onMouseDown()
+                if closeBtn.clicked:
                     interface()
+                    return
 
         screen.blit(interface_image, (0, 0))
+        closeBtn.draw(screen)
+
+        creditT = utils.font80.render("Credits", True, (233, 233, 12))
+        utils.drawText(Vector2(utils.width / 2 - creditT.get_width() / 2, 60), "Credits", (233, 233, 12),
+                       utils.font80,
+                       screen)
+
+        d1 = utils.font32.render("Dev: nekoo98", True, (233, 233, 12))
+        utils.drawText(Vector2(utils.width / 2 - d1.get_width() / 2, 200), "Dev: nekoo98", (212, 44, 44),
+                       utils.font32,
+                       screen)
+
+        d2 = utils.font32.render("Art: Doggo09", True, (233, 233, 12))
+        utils.drawText(Vector2(utils.width / 2 - d2.get_width() / 2, 250), "Art: Doggo09", (23, 233, 12),
+                       utils.font32,
+                       screen)
+
+        d3 = utils.font32.render("Sound: Chicken877", True, (233, 233, 12))
+        utils.drawText(Vector2(utils.width / 2 - d3.get_width() / 2, 300), "Sound: Chicken877", (23, 233, 233),
+                       utils.font32,
+                       screen)
 
         pygame.display.update()
 
