@@ -258,7 +258,7 @@ def credits_():
         pygame.display.update()
 
 
-def how_to_play(flag):
+def how_to_play(flag,difficult = 0):
     interface_image = pygame.image.load("Images/H_menu.png")
     interface_image = pygame.transform.scale(interface_image, (1000, 720))
 
@@ -279,12 +279,54 @@ def how_to_play(flag):
 
                 if button_I.collidepoint((mx, my)):
                     if flag == 1:
-                        car_racing()
+                        car_racing(difficult)
                     elif flag == 2:
                         multi_player()
 
         screen.blit(interface_image, (0, 0))
 
+        pygame.display.update()
+
+
+
+def select_difficult(flag):
+    interface_image = pygame.image.load("Images/crash.png")
+    interface_image = pygame.transform.scale(interface_image, (1000, 720))
+
+
+    easyBtn = ImgBtn(Vector2(550, 200), pygame.image.load("images/button1.png"), "EASY", utils.font32, (23, 233, 23))
+    normalBtn = ImgBtn(Vector2(550, 270), pygame.image.load("images/button1.png"), "NORMAL", utils.font32, (23, 123, 212))
+    hardBtn = ImgBtn(Vector2(550, 340), pygame.image.load("images/button1.png"), "HARD", utils.font32,
+                       (178, 23, 23))
+
+    # interface loop
+    while True:
+        # getting the input of the user
+        for ev in pygame.event.get():
+            # press on exit button
+            if ev.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                # press on quit button
+            if ev.type == pygame.MOUSEBUTTONDOWN:
+                mx, my = pygame.mouse.get_pos()
+
+                easyBtn.onMouseDown()
+                normalBtn.onMouseDown()
+                hardBtn.onMouseDown()
+
+                if easyBtn.clicked:
+                    how_to_play(1,0)
+                if normalBtn.clicked:
+                    how_to_play(1,1)
+                if hardBtn.clicked:
+                    how_to_play(1,2)
+
+        screen.blit(interface_image, (0, 0))
+        utils.drawText(Vector2(200, 270), "Select difficult", (123, 123, 123), utils.font48, screen)
+        easyBtn.draw(screen)
+        normalBtn.draw(screen)
+        hardBtn.draw(screen)
         pygame.display.update()
 
 
@@ -342,7 +384,7 @@ def game():
 
                 if button_S.collidepoint((mx, my)):
                     # car_racing()
-                    how_to_play(1)
+                    select_difficult(1)
 
                 if button_I.collidepoint((mx, my)):
                     info()

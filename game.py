@@ -11,7 +11,7 @@ from utils import utils
 street_position = 0
 
 
-def car_racing():
+def car_racing(difficult = 0):
     from interface import interface
     pygame.init()
 
@@ -150,7 +150,12 @@ def car_racing():
                 else:
                     score += 100
                 car.repaint(random.choice(colorList))
-                car.changeSpeed(random.randint(1, 5))
+                if difficult == 0:
+                    car.changeSpeed(random.randint(1, 5))
+                if difficult == 1:
+                    car.changeSpeed(random.randint(4, 7))
+                if difficult == 2:
+                    car.changeSpeed(random.randint(10, 14))
                 Si = (random.randrange(60, 100) / 100)
                 car.resize(80 * Si, 150 * Si)
                 car.rect.y = random.randint(-300, 0)
@@ -203,7 +208,9 @@ def car_racing():
 
         score_text = score_font.render(f"Score: {score}", True, (255, 255, 255), (0, 0, 0))
         score_rect = score_text.get_rect(center=(800, 100))
-        screen.blit(score_text, score_rect)
+        utils.drawText(Vector2(700, 50), f"Score:   {score}", (23, 233, 233), utils.font32, screen)
+        utils.drawText(Vector2(700, 100), f"time:   {time_second}", (233, 233, 233), utils.font32, screen)
+        # screen.blit(score_text, score_rect)
 
         T = [0, 0]
         if playerCar.invincible:
@@ -230,7 +237,7 @@ def car_racing():
             playerCar.rect.width = playerCarSize.x
             playerCar.rect.height = playerCarSize.y
 
-        screen.blit(text, pos_text)
+        # screen.blit(text, pos_text)
 
         all_sprites_list.update()
 
